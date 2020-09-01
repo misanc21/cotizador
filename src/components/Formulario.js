@@ -44,6 +44,14 @@ const Button = styled.button`
         cursor:pointer;
     }
 `
+const Error = styled.div `
+    background-color: red;
+    color: white;
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+`
 
 const Formulario = ()=>{
 
@@ -62,8 +70,23 @@ const Formulario = ()=>{
         })
     }
 
+    const [error, setError] = useState (false)
+
+    const cotizarSeguro = e => {
+        e.preventDefault()
+
+        if(marca.trim()==='' || year.trim()=== '' || plan.trim()===''){
+            setError(true)
+            return
+        }
+        setError(false)
+    }
+
     return (
-        <form>
+        <form
+            onSubmit = {cotizarSeguro}    
+        >
+            {error? <Error>Todos los campos son obligatorios</Error>:null}
             <AreaCampo>
                 <Label>Marca</Label>
                 <Select
@@ -114,7 +137,7 @@ const Formulario = ()=>{
                     onChange = {obtener}
                 />Completo
             </AreaCampo>
-            <Button>Cotizar</Button>
+            <Button type="submit">Cotizar</Button>
         </form>
     )
 }
