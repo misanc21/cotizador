@@ -55,7 +55,7 @@ const Error = styled.div `
     margin-bottom: 2rem;
 `
 
-const Formulario = ({ setResumen })=>{
+const Formulario = ({ setResumen, setCargando })=>{
 
     const [datos, setDatos] = useState({
         marca:'',
@@ -91,10 +91,15 @@ const Formulario = ({ setResumen })=>{
         resultado = calcularMarca(marca) * resultado
         resultado = parseFloat(incremento * resultado).toFixed(2)
 
-        setResumen({
-            cotizacion: resultado,
-            datos: datos
-        })
+        setCargando(true)
+        setTimeout(() => {
+            setCargando(false)
+            setResumen({
+                cotizacion: resultado,
+                datos: datos
+            })
+        }, 3000);
+
         
     }
 
