@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from '@emotion/styled'
 
 const AreaCampo = styled.div`
@@ -46,11 +46,31 @@ const Button = styled.button`
 `
 
 const Formulario = ()=>{
+
+    const [datos, setDatos] = useState({
+        marca:'',
+        year:'',
+        plan:''
+    })
+
+    const {marca, year, plan} = datos
+
+    const obtener = e => {
+        setDatos({
+            ...datos,
+            [e.target.name]: e.target.value
+        })
+    }
+
     return (
         <form>
             <AreaCampo>
                 <Label>Marca</Label>
-                <Select>
+                <Select
+                    name="marca"
+                    value={marca}
+                    onChange = {obtener}
+                >
                     <option value="">-- Seleccione --</option>
                     <option value="americano">Americano</option>
                     <option value="asiatico">Asiatico</option>
@@ -59,7 +79,11 @@ const Formulario = ()=>{
             </AreaCampo>
             <AreaCampo>
                 <Label>Año</Label>
-                <Select>
+                <Select
+                    name="year"
+                    value={year}
+                    onChange = {obtener}
+                >
                     <option value="">-- Seleccione --</option>
                     <option value="2021">2021</option>
                     <option value="2020">2020</option>
@@ -79,11 +103,15 @@ const Formulario = ()=>{
                     type="radio"
                     name="plan"
                     value="basico"
+                    checked= {plan === 'basico'}
+                    onChange = {obtener}
                 />Basico
                 <InputRadio 
                     type="radio"
                     name="plan"
-                    value="Completo"
+                    value="completo"
+                    checked= {plan === 'completo'}
+                    onChange = {obtener}
                 />Completo
             </AreaCampo>
             <Button>Cotizar</Button>
