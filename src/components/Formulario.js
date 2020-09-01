@@ -55,7 +55,7 @@ const Error = styled.div `
     margin-bottom: 2rem;
 `
 
-const Formulario = ()=>{
+const Formulario = ({ setResumen })=>{
 
     const [datos, setDatos] = useState({
         marca:'',
@@ -90,6 +90,11 @@ const Formulario = ()=>{
         resultado -= ((diferencia * 3) * resultado) / 100
         resultado = calcularMarca(marca) * resultado
         resultado = parseFloat(incremento * resultado).toFixed(2)
+
+        setResumen({
+            cotizacion: resultado,
+            datos: datos
+        })
         
     }
 
